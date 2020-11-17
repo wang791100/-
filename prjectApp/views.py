@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-
+from django.contrib.auth.hashers import make_password
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render,redirect
@@ -63,7 +63,7 @@ def zhuce(request):
                 msg = '已存在用户'
                 return render(request,'zhuce.html',{'msg':msg})
             else:
-                User.objects.create(username=username,password=password,phone=phone,email=email,count=10,time=1)
+                User.objects.create(username=username,password=make_password(password),phone=phone,email=email,count=10,time=1)
                 msg = '注册成功'
                 return render(request,'zhuce.html',{'msg':msg,'pass':1})
     return render(request,'zhuce.html',{})
